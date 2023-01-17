@@ -486,6 +486,11 @@ a:hover,
   background-color: rgba(255, 214, 0, 0.6);
 }
 
+.cs-accent_770_bg_2,
+.cs-accent_770_bg_2_hover:hover {
+  background-color: rgba(84, 195, 195, 0.6);
+}
+
 .cs-accent_70_bg_2,
 .cs-accent_70_bg_2_hover:hover {
   background-color: rgba(255, 214, 0, 0.7);
