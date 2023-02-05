@@ -82,7 +82,7 @@
               emailjs.sendForm('service_xfunumj', 'template_a4fexob', this)
                   .then(function(response) {
                     console.log("SUCCESS!", response.status, response.text);
-                    alert(response.text, 'success');
+                    alert('We\'ve received your message. someone from our team will contact you soon.', 'success');
                     document.getElementById('contact-form').reset();
                     setTimeout(function() {
                       document.getElementById('messageAlert').style.display = 'none';
