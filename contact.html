@@ -80,7 +80,7 @@
           document.getElementById('contact-form').addEventListener('submit', function(event) {
               event.preventDefault();
               emailjs.sendForm('service_xfunumj', 'template_a4fexob', this)
-                  .then(function() {
+                  .then(function(response) {
                     console.log("SUCCESS!", response.status, response.text);
                     alert(response.text, 'success');
                     document.getElementById('contact-form').reset();
