@@ -52,29 +52,48 @@
   <link rel="stylesheet" href="./assets/css/theme_8.css">
 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js"></script>
-  <script>
-    function onSubmit(token) {
-      document.getElementById('g-recaptcha-response').value = token;
-      document.getElementById("contact-form").submit();
-    }
-  </script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LetElQkAAAAACqU9jrlfSnVZwGm4v5I9-me6eZi"></script>
   <script type="text/javascript">
     (function() {
-        // https://dashboard.emailjs.com/admin/account
         emailjs.init('E7VRhXpcyzfeC4Dza');
     })();
   </script>
+  <script>
+    grecaptcha.ready(function() {
+      grecaptcha.execute('6LetElQkAAAAACqU9jrlfSnVZwGm4v5I9-me6eZi', { action:'validate_captcha' }).then(function(token) {
+          document.getElementById('g-recaptcha-response').value = token;
+      });
+    });
+  </script>
   <script type="text/javascript">
       window.onload = function() {
+          var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+          function alert (message, type) {
+            const wrapperWindow = document.createElement('div');
+            wrapperWindow.innerHTML = [
+              `<div class="alert mt-4 alert-${type} alert-dismissible" id="messageAlert" role="alert">`,
+              `   <div>${message}</div>`,
+              '</div>'
+            ].join('');
+            alertPlaceholder.append(wrapperWindow);
+          }
           document.getElementById('contact-form').addEventListener('submit', function(event) {
               event.preventDefault();
-              // these IDs from the previous steps
               emailjs.sendForm('service_xfunumj', 'template_a4fexob', this)
                   .then(function() {
-                      console.log('SUCCESS!');
+                    console.log("SUCCESS!", response.status, response.text);
+                    alert(response.text, 'success');
+                    document.getElementById('contact-form').reset();
+                    setTimeout(function() {
+                      document.getElementById('messageAlert').style.display = 'none';
+                    }, 1500);
                   }, function(error) {
-                      console.log('FAILED...', error);
+                      console.log("FAILED...", error);
+                      alert(error.text, 'danger');
+                      document.getElementById('contact-form').reset();
+                      setTimeout(function() {
+                        document.getElementById('messageAlert').style.display = 'none';
+                      }, 1500);
                   });
           });
       }
@@ -179,22 +198,23 @@
           <h4 class="cs-contact_title cs-semi_bold">Get In Touch</h4>
           <div class="cs-height_10 cs-height_lg_10"></div>
           <form class="cs-contact_form" id="contact-form">
-            <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" />
+            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+            <input type="hidden" name="action" value="validate_captcha">
             <div class="row cs-row_gap_20">
               <div class="col-sm-6">
-                <input type="text" name="first_name" class="cs-form_field cs-white_bg cs-accent_30_border cs-primary_color" placeholder="First name">
+                <input required autocomplete="off" type="text" name="first_name" class="cs-form_field cs-white_bg cs-accent_30_border cs-primary_color" placeholder="First name (Soft)">
                 <div class="cs-height_20 cs-height_lg_20"></div>
               </div>
               <div class="col-sm-6">
-                <input type="text" name="last_name" class="cs-form_field cs-white_bg cs-accent_30_border cs-primary_color" placeholder="Last name">
+                <input required autocomplete="off" type="text" name="last_name" class="cs-form_field cs-white_bg cs-accent_30_border cs-primary_color" placeholder="Last name (Veer)">
                 <div class="cs-height_20 cs-height_lg_20"></div>
               </div>
               <div class="col-sm-6">
-                <input type="text" name="contact_number" class="cs-form_field cs-white_bg cs-accent_30_border cs-primary_color" placeholder="Phone">
+                <input type="tel" pattern="[0-9]{10}" name="contact_number" class="cs-form_field cs-white_bg cs-accent_30_border cs-primary_color" placeholder="Phone (9898989898)">
                 <div class="cs-height_20 cs-height_lg_20"></div>
               </div>
               <div class="col-sm-6">
-                <input type="text" name="email" class="cs-form_field cs-white_bg cs-accent_30_border cs-primary_color" placeholder="Email">
+                <input required autocomplete="off" type="email" name="email" class="cs-form_field cs-white_bg cs-accent_30_border cs-primary_color" placeholder="Email (swe@gmail.com)">
                 <div class="cs-height_20 cs-height_lg_20"></div>
               </div>
               <div class="col-lg-12">
@@ -202,10 +222,11 @@
                 <div class="cs-height_20 cs-height_lg_20"></div>
               </div>
               <div class="col-lg-12">
-                <button data-sitekey="6LetElQkAAAAACqU9jrlfSnVZwGm4v5I9-me6eZi" data-callback='onSubmit' data-action='submit' class="g-recaptcha cs-btn cs-style6 cs-rounded text-uppercase cs-medium cs-accent_border cs-accent_bg cs-white cs-accent_10_bg_hover cs-accent_40_border_hover cs-accent_color_hover"><span class="cs-btn_text">Send Message</span></button>
+                <button type="submit" class="g-recaptcha cs-btn cs-style6 cs-rounded text-uppercase cs-medium cs-accent_border cs-accent_bg cs-white cs-accent_10_bg_hover cs-accent_40_border_hover cs-accent_color_hover"><span class="cs-btn_text">Send Message</span></button>
               </div>
             </div>
           </form>
+          <div id="liveAlertPlaceholder"></div>
         </div>
       </div>
     </div>
