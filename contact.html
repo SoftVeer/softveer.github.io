@@ -52,19 +52,19 @@
   <link rel="stylesheet" href="./assets/css/theme_8.css">
 
   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script src="https://www.google.com/recaptcha/api.js?render=6LetElQkAAAAACqU9jrlfSnVZwGm4v5I9-me6eZi"></script>
+  <!-- <script src="https://www.google.com/recaptcha/api.js?render="></script> -->
   <script type="text/javascript">
     (function() {
         emailjs.init('E7VRhXpcyzfeC4Dza');
     })();
   </script>
-  <script>
+  <!-- <script>
     grecaptcha.ready(function() {
-      grecaptcha.execute('6LetElQkAAAAACqU9jrlfSnVZwGm4v5I9-me6eZi', { action:'validate_captcha' }).then(function(token) {
+      grecaptcha.execute('', { action:'validate_captcha' }).then(function(token) {
           document.getElementById('g-recaptcha-response').value = token;
       });
     });
-  </script>
+  </script> -->
   <script type="text/javascript">
       window.onload = function() {
           var alertPlaceholder = document.getElementById('liveAlertPlaceholder');
@@ -86,14 +86,14 @@
                     document.getElementById('contact-form').reset();
                     setTimeout(function() {
                       document.getElementById('messageAlert').style.display = 'none';
-                    }, 1500);
+                    }, 2000);
                   }, function(error) {
                       console.log("FAILED...", error);
                       alert(error.text, 'danger');
                       document.getElementById('contact-form').reset();
                       setTimeout(function() {
                         document.getElementById('messageAlert').style.display = 'none';
-                      }, 1500);
+                      }, 2000);
                   });
           });
       }
@@ -198,8 +198,8 @@
           <h4 class="cs-contact_title cs-semi_bold">Get In Touch</h4>
           <div class="cs-height_10 cs-height_lg_10"></div>
           <form class="cs-contact_form" id="contact-form">
-            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
-            <input type="hidden" name="action" value="validate_captcha">
+            <!-- <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+            <input type="hidden" name="action" value="validate_captcha"> -->
             <div class="row cs-row_gap_20">
               <div class="col-sm-6">
                 <input required autocomplete="off" type="text" name="first_name" class="cs-form_field cs-white_bg cs-accent_30_border cs-primary_color" placeholder="First name (Soft)">
